@@ -1,8 +1,11 @@
 package utilies;
 
 import java.net.Socket;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
-public class ClientThread extends Thread {
+public class ClientThread implements Runnable {
 
     private Socket client;
 
@@ -14,12 +17,14 @@ public class ClientThread extends Thread {
     @Override
     public void run() {
         try {
-            /*
-            ObjectInputStream input = new ObjectInputStream(this.client.getInputStream());
-            String message = (String)input.readObject();
+            
+            BufferedReader input = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
+            String message = input.readLine();
             if(message.equals("online")) {
-                ObjectOutputStream output = new ObjectOutputStream(this.client.getOutputStream("OK"));
-            }*/
+                PrintWriter output = new PrintWriter(this.client.getOutputStream());
+                output.println("OK");
+            }
+            
         }catch (Exception e) {
             System.out.println(e.toString());
         }
