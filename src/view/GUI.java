@@ -1,13 +1,20 @@
 package view;
 
 import java.util.Scanner;
+import java.net.Socket;
+import utilies.DateHandler;
+import java.net.InetAddress;
+
 
 public class GUI {
 
     private Scanner scanner;
+    private DateHandler dateHandler;
+    
     
     public GUI() {
         this.scanner = new Scanner(System.in);
+        this.dateHandler = new DateHandler();
     }
 
     public void welcome(String type, int portOrIp) {
@@ -44,9 +51,13 @@ public class GUI {
     }
 
     public String[] getCommand() {
-        System.out.print("# fire > ");
-        String command = this.scanner.nextLine().toLowerCase();
-        return command.split(" ");
+        try {
+            System.out.print("[~F1R3: "+ System.getProperty("user.name") +"@"+InetAddress.getLocalHost().getHostAddress().toString() + "]$ ");
+            String command = this.scanner.nextLine().toLowerCase();
+            return command.split(" ");
+        }catch(Exception e) {
+            return null;
+        }
     }
 
     public static void errorMessage(String msg) {
@@ -78,4 +89,14 @@ public class GUI {
     public static void newClient(String clientAddress) {
         System.out.println("[!] New zoombie host connected by: " + clientAddress);
     }
+
+    public static void showActiveZoombie(Socket client) {
+        System.out.println("[!] ZOOMBIE: " + client.getRemoteSocketAddress().toString());
+    }
+
+    public void pressEnterToContinue(){
+        System.out.println("Press \"ENTER\" to continue...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
+     }
 }
