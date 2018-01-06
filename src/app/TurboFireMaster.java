@@ -41,15 +41,17 @@ public class TurboFireMaster {
             
             }else if(command[0].equalsIgnoreCase("fire")) {
                 int port = 80;
-                String ipAddress = null;
                 int threadAmount = 1;
+                String ipAddress = null;
+                String protocol = null;
+                
                 for(int i=1 ; i < command.length ; i++) {
-                    if(command[i].equals("--address") || command[i].equals("-ip")) {
+                    if(command[i].equalsIgnoreCase("--target") || command[i].equalsIgnoreCase("-ip")) {
                         if(command[i+1] != null && command[i+1].getClass().getName().toString().equals("java.lang.String")) {
                             ipAddress = command[i+1];
                             i++;
                         }
-                    }else if(command[i].equals("--port") || command[i].equals("-p")) {
+                    }else if(command[i].equalsIgnoreCase("--port") || command[i].equalsIgnoreCase("-p")) {
                         if(command[i+1] != null) {
                             port = Integer.parseInt(command[i+1]);
                             if(port < 1024 || port > 65535) {
@@ -57,9 +59,14 @@ public class TurboFireMaster {
                             }
                             i++;
                         }
-                    }else if(command[i].equals("--threads") || command[i].equals("-t")) {
+                    }else if(command[i].equalsIgnoreCase("--threads") || command[i].equalsIgnoreCase("-t")) {
                         if(command[i+1] != null) {
                             threadAmount = Integer.parseInt(command[i+1]);
+                            i++;
+                        }
+                    }else if(command[i].equalsIgnoreCase("--protocol") || command[i].equalsIgnoreCase("-pl")) {
+                        if(command[i+1] != null) {
+                            protocol = command[i+1];
                             i++;
                         }
                     }
@@ -67,16 +74,20 @@ public class TurboFireMaster {
                 if(ipAddress == null) {
                     ipAddress = "127.0.0.1";
                 }
+                if(protocol == null) {
+                    protocol = "TCP";
+                }
                 if(command.length == 1) {
                     this.gui.showMessage("You didnt enter any arguments. Then, this parameters will be set for attack operation: ");
                 }else {
                     this.gui.showMessage("Finished! Your attack operation was been configured!");        
                 }
+                this.gui.showMessage("Protocol: " + protocol);
                 this.gui.showMessage("Address: " + ipAddress);
                 this.gui.showMessage("Port: " + port);
                 this.gui.showMessage("Operation Thread Amount: " + threadAmount);
                 this.gui.pressEnterToContinue();
-                this.attackPattern = new AttackPattern(ipAddress, port, threadAmount);
+                this.attackPattern = new AttackPattern(protocol, ipAddress, port, threadAmount);
                 Thread t = new Thread(new ServerThread(this.attackPattern));
                 t.start();
             }

@@ -1,15 +1,31 @@
 package utilies;
 
-public class AttackPattern {
+import java.io.Serializable;
 
+public class AttackPattern implements Serializable{
+
+    private static final long serialVersionUID = 1L;
     private int port;
     private String ipAddress;
     private int threadAmount;
+    private int attackTimeOut;
+    private int socketTimeOut;
+    private String protocol;
+
     
-    public AttackPattern(String ipAddress, int port, int threadAmount) {
+    public AttackPattern(String protocol ,String ipAddress, int port, int threadAmount) {
         setPort(port);
         setIP(ipAddress);
         setThreadAmount(threadAmount);
+        setProtocol(protocol);
+    }
+
+    public String getProtocol() {
+        return this.protocol;
+    }
+
+    public void setProtocol(String protocol) {
+        this.protocol = protocol;
     }
 
     public void setIP(String ipAddress) {
