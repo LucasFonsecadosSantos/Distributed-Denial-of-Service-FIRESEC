@@ -1,6 +1,7 @@
 package protocols.interfaces;
 
 import utilies.AttackPattern;
+import view.GUI;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
@@ -30,9 +31,9 @@ public abstract class TransmissionControlProtocolInterface extends Protocol {
             try {
                 Thread.sleep(getAttackPattern().getAttackRange());
             } catch (InterruptedException ex) {
-                ex.printStackTrace();
+                GUI.showExceptionLog(ex.toString());
             } catch (Exception e) {
-                e.printStackTrace();
+                GUI.showExceptionLog(e.toString());
             }
         }
     }
@@ -45,7 +46,9 @@ public abstract class TransmissionControlProtocolInterface extends Protocol {
             this.socket.setKeepAlive(true);
             this.socket.setSoTimeout(getAttackPattern().getConnectionTimeOut());
         } catch (SocketException se) {
-            se.printStackTrace();
+            GUI.showExceptionLog(se.toString());
+        } catch (Exception e) {
+            GUI.showExceptionLog(e.toString());
         }
     }
 
@@ -55,13 +58,13 @@ public abstract class TransmissionControlProtocolInterface extends Protocol {
                 this.socket.connect(getAddress());
             }
         } catch (UnknownHostException uhe) {
-            uhe.printStackTrace();
+            GUI.showExceptionLog(uhe.toString());
         } catch (SocketException se) {
-            se.printStackTrace();
+            GUI.showExceptionLog(se.toString());
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            GUI.showExceptionLog(ioe.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            GUI.showExceptionLog(e.toString());
         }
     }
 
@@ -71,9 +74,9 @@ public abstract class TransmissionControlProtocolInterface extends Protocol {
                 this.socket.close();
             }
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            GUI.showExceptionLog(ioe.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            GUI.showExceptionLog(e.toString());
         }
     }
 

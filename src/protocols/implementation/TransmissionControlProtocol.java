@@ -1,6 +1,7 @@
 package protocols.implementation;
 
 import utilies.AttackPattern;
+import view.GUI;
 import protocols.interfaces.TransmissionControlProtocolInterface;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -18,9 +19,9 @@ public class TransmissionControlProtocol extends TransmissionControlProtocolInte
             bw.write(getAttackPattern().getMessage());
             bw.flush();
         } catch (IOException ex) {
-            ex.printStackTrace();
+            GUI.showExceptionLog(ex.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            GUI.showExceptionLog(e.toString());
         }
     }
 }

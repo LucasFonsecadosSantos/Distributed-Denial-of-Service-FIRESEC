@@ -2,6 +2,7 @@ package tasks;
 
 import view.GUI;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.net.ServerSocket;
 import java.util.List;
 import java.util.ArrayList;
@@ -31,8 +32,12 @@ public class ServerThread implements Runnable{
                     this.zoombieClients.add(clientSocket);
                 }
                 System.out.println("Terminou");
-            }catch (Exception e) {
-                System.out.println(e.toString());
+            } catch (UnknownHostException uhe) {
+                this.gui.showExceptionLog(uhe.toString());
+            } catch (IOException ioe) {
+                this.gui.showExceptionLog(ioe.toString());
+            } catch (Exception e) {
+                this.gui.showExceptionLog(e.toString());
             }
         }
     }

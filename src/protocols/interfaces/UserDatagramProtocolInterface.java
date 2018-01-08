@@ -1,5 +1,6 @@
 package protocols.interfaces;
 
+import view.GUI;
 import utilies.AttackPattern;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -27,9 +28,9 @@ public abstract class UserDatagramProtocolInterface extends Protocol {
             try {
                 Thread.sleep(getAttackPattern().getAttackRange());
             } catch (InterruptedException ex) {
-                ex.printStackTrace();
+                GUI.showExceptionLog(ex.toString());
             } catch (Exception e) {
-                e.printStackTrace();
+                GUI.showExceptionLog(e.toString());
             }
         }
     }
@@ -39,9 +40,9 @@ public abstract class UserDatagramProtocolInterface extends Protocol {
             this.socket = new DatagramSocket(0);
             this.socket.setSoTimeout(getAttackPattern().getConnectionTimeOut());
         } catch (SocketException se) {
-            se.printStackTrace();
+            GUI.showExceptionLog(se.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            GUI.showExceptionLog(e.toString());
         }
     }
 

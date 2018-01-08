@@ -29,6 +29,7 @@ import java.util.ArrayList;
 /**
  * @author Lucas Fonseca dos Santos
  * @author Otavio Andrade
+ * @version 1.0
  * 
  * This class describes the Master turbo fire version executable.
  * This version is responsible to command all slaves machines of

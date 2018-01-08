@@ -1,7 +1,26 @@
 
+/**
+ * FIRESEC TURBO FIRE
+ * A stress network analysis tool.
+ * ------------------------------------
+ * Written by Lucas Fonseca dos Santos.
+ * Copyleft 2018 - Rights not reserved.
+ * ------------------------------------
+ * 
+ * Pratical project for discipline Distributed
+ * Systems of Federal Univeristy of Lavras - MG,
+ * Brazil.
+ * 
+ * CONTACT:
+ * lucas@lcfcompany.com.br
+ * github.com/LucasFonsecaDosSantos
+ */
 import app.TurboFireMaster;
 import app.TurboFireSlave;
 
+/**
+ * 
+ */
 public class TurboFire {
 
     public static void main(String[] args) {

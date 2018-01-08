@@ -134,5 +134,9 @@ public class GUI {
         System.out.println(blue()+"Press \"ENTER\" to continue...");
         Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
-     }
+    }
+
+    public static void showExceptionLog(String exception) {
+        System.out.println("["+red()+"X"+green()+"] "+ red() + "SOFTWARE EXCEPTION: " + yellow() + exception);
+    }
 }

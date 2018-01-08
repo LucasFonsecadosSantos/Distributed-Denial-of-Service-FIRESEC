@@ -88,9 +88,9 @@ public class TurboFireSlave implements Serializable {
                 }
                 break;
             }catch(NotSerializableException nse) {
-                System.out.println(nse.toString());
+                this.gui.showExceptionLog(e.toString());
             }catch (Exception e) {
-                System.out.println(e.toString());
+                this.gui.showExceptionLog(e.toString());
             }
         }
 

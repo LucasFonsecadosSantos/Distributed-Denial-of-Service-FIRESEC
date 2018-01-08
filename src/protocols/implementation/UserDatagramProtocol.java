@@ -2,6 +2,7 @@ package protocols.implementation;
 
 import protocols.interfaces.UserDatagramProtocolInterface;
 import utilies.AttackPattern;
+import view.GUI;
 import java.io.IOException;
 
 public class UserDatagramProtocol extends UserDatagramProtocolInterface {
@@ -18,9 +19,9 @@ public class UserDatagramProtocol extends UserDatagramProtocolInterface {
         try {
             getSocket().send(getPacket());
         } catch (IOException ex) {
-            ex.printStackTrace();
+            GUI.showExceptionLog(ex.toString());
         } catch (Exception e) {
-            e.printStackTrace();
+            GUI.showExceptionLog(e.toString());
         }
     }
 }

@@ -1,5 +1,6 @@
 package tasks;
 
+import view.GUI;
 import java.net.Socket;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -32,11 +33,11 @@ public class ClientThread implements Runnable, Serializable {
                 break;
             }
         }catch(WriteAbortedException wae) {
-            System.out.println(wae.toString());    
+            GUI.showExceptionLog(wae.toString());
         }catch(NotSerializableException nse) {
-            System.out.println(nse.toString());    
+            GUI.showExceptionLog(nse.toString());
         }catch (Exception e) {
-            System.out.println(e.toString());
+            GUI.showExceptionLog(e.toString());
         }
     }
 }
