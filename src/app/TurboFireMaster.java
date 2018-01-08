@@ -1,3 +1,19 @@
+/**
+ * FIRESEC TURBO FIRE
+ * A stress network analysis tool.
+ * ------------------------------------
+ * Written by Lucas Fonseca dos Santos.
+ * Copyleft 2018 - Rights not reserved.
+ * ------------------------------------
+ * 
+ * Pratical project for discipline Distributed
+ * Systems of Federal Univeristy of Lavras - MG,
+ * Brazil.
+ * 
+ * CONTACT:
+ * lucas@lcfcompany.com.br
+ * github.com/LucasFonsecaDosSantos
+ */
 package app;
 
 import java.net.ServerSocket;
@@ -10,16 +26,65 @@ import tasks.ClientThread;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * @author Lucas Fonseca dos Santos
+ * @author Otavio Andrade
+ * 
+ * This class describes the Master turbo fire version executable.
+ * This version is responsible to command all slaves machines of
+ * zoombie network and send for them attack commands with settings
+ * defined by the user.
+ * 
+ * The attack settings can be defined by the user are:
+ * - Target host IP (--address or -ip);
+ * - Target access port (--port or -pt);
+ * - Attack Range (--range or -r);
+ * - Protocol time out (--timeOut or -to);
+ * - Attack threads amount (--threads or -t);
+ * - Text message protocol content (--message or -m);
+ * - Type of protocol will be used (--protocol or -p);
+ */
 public class TurboFireMaster {
     
+    /**
+     * The gui text user interface.
+     */
     private GUI gui;
+
+    /**
+     * An integer server port value.
+     * (Between 1025 to 65533).
+     */
     private int serverPort;
+
+    /**
+     * The main master server socket connection.
+     */
     private ServerSocket server;
+
+    /**
+     * The server communication process.
+     */
     private Runnable serverThread;
+
+    /**
+     * A zoombie network hosts list.
+     */
     private ArrayList zoombieList;
+
+    /**
+     * A DDOS attack pattern with all attack settings defined
+     * by the user.
+     */
     private AttackPattern attackPattern;
 
-
+    /** 
+     * The master turbo fire executable version
+     * object constructor. It sets a gui instance,
+     * a server port value and zoombie list. After that,
+     * it execs the main method that will be starts the
+     * master server.
+    */
     public TurboFireMaster() {
         this.gui = new GUI();
         this.serverPort = 2525;
@@ -27,6 +92,11 @@ public class TurboFireMaster {
         startMaster();
     }
 
+    /**
+     * This is the main master method.
+     * It interprets the settings inputed by the user to
+     * formatt attack and process it.
+     */
     public void startMaster() {
         while(true) {
             this.gui.welcome("master", this.serverPort);
@@ -115,10 +185,18 @@ public class TurboFireMaster {
         }
     }
 
+    /**
+     * The server port state attribute accessor method.
+     * @return int An integer server port value.
+     */
     public int getServerPort() {
         return this.serverPort;
     }
 
+    /**
+     * The server address state attribute accessor method.
+     * @return InetAddress A object InetAddress with the server socket address.
+     */
     public InetAddress getServerAddress() {
         return this.server.getInetAddress();
     }
