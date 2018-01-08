@@ -9,15 +9,26 @@ public class AttackPattern implements Serializable{
     private String ipAddress;
     private int threadAmount;
     private int attackTimeOut;
-    private int socketTimeOut;
+    private int connectionTimeOut;
     private String protocol;
+    private String message;
 
     
-    public AttackPattern(String protocol ,String ipAddress, int port, int threadAmount) {
+    public AttackPattern(String protocol ,String ipAddress, int port, int threadAmount, int connectionTimeOut, String message) {
         setPort(port);
         setIP(ipAddress);
         setThreadAmount(threadAmount);
         setProtocol(protocol);
+        setConnectionTimeOut(connectionTimeOut);
+        setMessage(message);
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public String getProtocol() {
@@ -50,5 +61,13 @@ public class AttackPattern implements Serializable{
 
     public int getThreadAmount() {
         return this.threadAmount;
+    }
+
+    public void setConnectionTimeOut(int connectionTimeOut) {
+        this.connectionTimeOut = connectionTimeOut;
+    }
+
+    public int getConnectionTimeOut() {
+        return this.connectionTimeOut;
     }
 }

@@ -42,8 +42,10 @@ public class TurboFireMaster {
             }else if(command[0].equalsIgnoreCase("fire")) {
                 int port = 80;
                 int threadAmount = 1;
+                int connectionTimeOut = 300;
                 String ipAddress = null;
                 String protocol = null;
+                String message = "Turbo Fire - Stress network test software tool.";
                 
                 for(int i=1 ; i < command.length ; i++) {
                     if(command[i].equalsIgnoreCase("--target") || command[i].equalsIgnoreCase("-ip")) {
@@ -69,6 +71,16 @@ public class TurboFireMaster {
                             protocol = command[i+1];
                             i++;
                         }
+                    }else if(command[i].equalsIgnoreCase("--timeOut") || command[i].equalsIgnoreCase("-to")) {
+                        if(command[i+1] != null) {
+                            connectionTimeOut = Integer.parseInt(command[i+1]);
+                            i++;
+                        }
+                    }else if(command[i+1].equalsIgnoreCase("--message") || command[i+1].equalsIgnoreCase("-m")) {
+                        if(command[i+1 != null]) {
+                            message = command[i+1];
+                            i++;
+                        }
                     }
                 }
                 if(ipAddress == null) {
@@ -86,8 +98,10 @@ public class TurboFireMaster {
                 this.gui.showMessage("Address: " + ipAddress);
                 this.gui.showMessage("Port: " + port);
                 this.gui.showMessage("Operation Thread Amount: " + threadAmount);
+                this.gui.showMessage("Connection Time Out: " + connectionTimeOut);
+                this.gui.showMessage("Message: " + message);
                 this.gui.pressEnterToContinue();
-                this.attackPattern = new AttackPattern(protocol, ipAddress, port, threadAmount);
+                this.attackPattern = new AttackPattern(protocol, ipAddress, port, threadAmount, connectionTimeOut, message);
                 Thread t = new Thread(new ServerThread(this.attackPattern));
                 t.start();
             }
