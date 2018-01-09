@@ -218,14 +218,29 @@ public class TurboFireMaster {
         return this.server.getInetAddress();
     }
 
+    /**
+     * The attackLogs attribute state modifier method.
+     * 
+     * @param AttackPattern A attackPattern object sended by response requisition.
+     */
     public static void addAttackLog(AttackPattern data) {
         attackLogs.add(data);
     }
 
+    /**
+     * The zombieHosts attribute state accessor method.
+     * 
+     * @return ArrayList A list with zombie IP address.
+     */
     public static ArrayList<String> getZoombieHosts() {
         return zoombieHosts;
     }
 
+    /**
+     * The zombieHosts attribute state modifier method.
+     * 
+     * @param address A string zombie IP address.
+     */
     public static void addNewZoombieHost(String address) {
         zoombieHosts.add(address);
     } 
