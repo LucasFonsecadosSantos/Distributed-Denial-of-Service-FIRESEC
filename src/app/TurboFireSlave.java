@@ -59,8 +59,14 @@ public class TurboFireSlave implements Serializable {
      */
     private AttackPattern attackPattern;
 
+    /**
+     * IP master server address.
+     */
     private String masterAddress;
 
+    /**
+     * Port for connection of master server.
+     */
     private int masterPort;
 
     /**
@@ -96,15 +102,13 @@ public class TurboFireSlave implements Serializable {
                     System.out.println("ok");
                 }
                 break;
-            }catch(NotSerializableException nse) {
+            } catch (SocketException se) {
+                this.gui.showExceptionLog(se.toString());
+            } catch (NotSerializableException nse) {
                 this.gui.showExceptionLog(nse.toString());
-            }catch (Exception e) {
+            } catch (Exception e) {
                 this.gui.showExceptionLog(e.toString());
             }
-        }
-
-        for(int i = 0 ; i < this.attackPattern.getThreadAmount() ; i++) {
-
         }
     }
 }

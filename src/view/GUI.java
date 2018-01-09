@@ -143,7 +143,7 @@ public class GUI {
         System.out.println(green()+"["+red()+"X"+green()+"] "+ red() + "SOFTWARE EXCEPTION: " + yellow() + exception);
     }
 
-    public static void showAttackActivity(int amount, List logs) {
+    public static void showAttackActivity(int amount, List logs, ArrayList<String> hosts) {
         clean();
         System.out.println("+----------------------------------------------------+");
         System.out.println("+ ATTACK ACTIVITY UPDATE                             +");
@@ -151,6 +151,12 @@ public class GUI {
         showMessage("DATA AMOUNT TRIGGERED: " + amount);
         AttackPattern a = (AttackPattern) logs.get(logs.size() - 1);
         showMessage("LATEST REQUEST TO TARGET BY: " + a.getAdditionalInformation());
+        showMessage("ACTIVE ZOMBIES:");
+        int k = 0;
+        for(String s : hosts) {
+            k++;
+            System.out.println(k+") " + s + "\n");
+        }
         System.out.println("+----------------------------------------------------+");
     }
 }

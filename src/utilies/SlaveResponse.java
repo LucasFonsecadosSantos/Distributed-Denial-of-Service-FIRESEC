@@ -36,4 +36,24 @@ public class SlaveResponse {
             GUI.showExceptionLog(e.toString());
         }
     }
+
+    public static void closeResponse(String masterAddress, int masterPort, AttackPattern attackPattern) {
+        try {
+            Socket socket = new Socket(masterAddress, masterPort);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(attackPattern);
+            oos.close();
+            socket.close();
+        } catch(SocketException se) {
+            GUI.showExceptionLog(se.toString());
+        } catch(WriteAbortedException wae) {
+            GUI.showExceptionLog(wae.toString());
+        } catch(NotSerializableException nse) {
+            GUI.showExceptionLog(nse.toString());
+        } catch(IOException ioe) {
+            GUI.showExceptionLog(ioe.toString());
+        } catch(Exception e) {
+            GUI.showExceptionLog(e.toString());
+        }
+    }
 }

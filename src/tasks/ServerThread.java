@@ -1,6 +1,7 @@
 package tasks;
 
 import view.GUI;
+import app.TurboFireMaster;
 import utilies.AttackPattern;
 import java.io.IOException;
 import java.net.Socket;
@@ -33,6 +34,7 @@ public class ServerThread implements Runnable {
                     Socket clientSocket = server.accept();
                     Thread t = new Thread(new ClientThread(clientSocket, attackPattern));
                     t.start();
+                    TurboFireMaster.addNewZoombieHost(clientSocket.getInetAddress().getHostAddress().toString());
                     this.zoombieClients.add(clientSocket);
                 }
             } catch (UnknownHostException uhe) {
