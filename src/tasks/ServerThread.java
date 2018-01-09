@@ -1,12 +1,13 @@
 package tasks;
 
 import view.GUI;
+import utilies.AttackPattern;
+import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.net.ServerSocket;
 import java.util.List;
 import java.util.ArrayList;
-import utilies.AttackPattern;
 
 public class ServerThread implements Runnable{
 
@@ -31,7 +32,6 @@ public class ServerThread implements Runnable{
                     t.start();
                     this.zoombieClients.add(clientSocket);
                 }
-                System.out.println("Terminou");
             } catch (UnknownHostException uhe) {
                 this.gui.showExceptionLog(uhe.toString());
             } catch (IOException ioe) {

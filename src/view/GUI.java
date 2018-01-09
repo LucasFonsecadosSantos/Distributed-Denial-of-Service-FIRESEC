@@ -97,7 +97,7 @@ public class GUI {
     }
 
     public static void errorMessage(String msg) {
-        System.out.println("["+red()+"X"+green()+"] "+ red() + msg);
+        System.out.println(green()+"["+red()+"X"+green()+"] "+ red() + msg);
     }
 
     public static void help() {
@@ -137,6 +137,6 @@ public class GUI {
     }
 
     public static void showExceptionLog(String exception) {
-        System.out.println("["+red()+"X"+green()+"] "+ red() + "SOFTWARE EXCEPTION: " + yellow() + exception);
+        System.out.println(green()+"["+red()+"X"+green()+"] "+ red() + "SOFTWARE EXCEPTION: " + yellow() + exception);
     }
 }
