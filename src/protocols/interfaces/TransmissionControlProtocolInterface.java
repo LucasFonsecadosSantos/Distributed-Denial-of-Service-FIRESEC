@@ -14,8 +14,8 @@ public abstract class TransmissionControlProtocolInterface extends Protocol {
 
     private Socket socket;
 
-    public TransmissionControlProtocolInterface(AttackPattern attackPattern) {
-        super(attackPattern);
+    public TransmissionControlProtocolInterface(AttackPattern attackPattern, String masterAddress, int masterPort) {
+        super(attackPattern, masterAddress, masterPort);
     }
 
     @Override

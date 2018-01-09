@@ -13,9 +13,10 @@ public class AttackPattern implements Serializable{
     private int attackRange;
     private String protocol;
     private String message;
+    private String additionalInformation;
 
     
-    public AttackPattern(String protocol ,String ipAddress, int port, int threadAmount, int connectionTimeOut, int attackRange, String message) {
+    public AttackPattern(String protocol ,String ipAddress, int port, int threadAmount, int connectionTimeOut, int attackRange, String message, String additionalInformation) {
         setPort(port);
         setIP(ipAddress);
         setThreadAmount(threadAmount);
@@ -25,6 +26,14 @@ public class AttackPattern implements Serializable{
         setAttackRange(attackRange);
     }
 
+    public void setAdditionalInformation(String information) {
+        this.additionalInformation = information;
+    }
+
+    public String getAdditionalInformation() {
+        return this.additionalInformation;
+    }
+    
     public int getAttackRange() {
         return this.attackRange;
     }
