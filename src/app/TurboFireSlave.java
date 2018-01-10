@@ -22,7 +22,10 @@ import view.GUI;
 import utilies.AttackPattern;
 import utilies.AttackFactory;
 import utilies.SlaveResponse;
+import tasks.StopServerThread;
 import protocols.interfaces.Protocol;
+import java.util.List;
+import java.util.ArrayList;
 import java.io.PrintWriter;
 import java.io.InputStreamReader;
 import java.io.NotSerializableException;
@@ -30,6 +33,7 @@ import java.io.BufferedReader;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.net.ServerSocket;
 import java.net.SocketException;
 import java.net.Inet4Address;
 
@@ -72,12 +76,21 @@ public class TurboFireSlave implements Serializable {
      */
     private int masterPort;
 
+    private ArrayList<Thread> attackThreads;
+
+    private Thread serverStopThread;
+
+    private static boolean stopAttackFlag;
+
     /**
      * The turbo fire slave version executable
      * constructor. It sets the gui instance and
      * start slave operation.
      */
     public TurboFireSlave(String masterAddress, int masterPort) {
+        this.attackThreads = new ArrayList<Thread>();
+        stopAttackFlag = false;
+        this.serverStopThread = null;
         this.gui = new GUI();
         this.masterAddress = masterAddress;
         this.masterPort = masterPort;
@@ -123,10 +136,29 @@ public class TurboFireSlave implements Serializable {
                 for(int i = 0 ; i < this.attackPattern.getThreadAmount() ; i++) {
                     Thread t = new Thread(AttackFactory.createAttack(this.attackPattern, this.masterAddress, 2525));
                     t.start();
+                    this.attackThreads.add(t);
                 }
+                this.serverStopThread = new Thread(new StopServerThread(this.masterAddress));
+                this.serverStopThread.start();
+                while(true) {
+                    if(this.stopAttackFlag) {
+                        this.gui.clean();
+                        for(Thread t : this.attackThreads) {
+                            t.interrupt();
+                            System.out.println("Attack interrupt");
+                        }
+                        break;
+                    }else {
+                        this.gui.showMessage("TCP Flooding...");
+                        continue;
+                    }
+                }
+                
                 break;
             }catch (InterruptedException ie) {
-                GUI.showExceptionLog(ie.toString());
+                GUI.showMessage("The attack has been interruped! " + ie.toString());
+                this.gui.pressEnterToContinue();
+                System.exit(0);
             } catch (SocketException se) {
                 this.gui.showExceptionLog(se.toString());
             } catch (NotSerializableException nse) {
@@ -135,5 +167,9 @@ public class TurboFireSlave implements Serializable {
                 this.gui.showExceptionLog(e.toString());
             }
         }
+    }
+
+    public static void setAttackFlag(boolean status) {
+        stopAttackFlag = status;
     }
 }

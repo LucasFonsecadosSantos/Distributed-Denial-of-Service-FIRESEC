@@ -60,7 +60,6 @@ public class TransmissionControlProtocol extends TransmissionControlProtocolInte
     @Override
     public void writeMessage(String message) {
         SlaveResponse.successfullyAttackResponse(getMasterAddress(), getMasterPort(), getAttackPattern());
-        GUI.showMessage("TCP Shot... ");
         try(BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(getSocket().getOutputStream()))) {
             bw.write(getAttackPattern().getMessage());
             bw.flush();
