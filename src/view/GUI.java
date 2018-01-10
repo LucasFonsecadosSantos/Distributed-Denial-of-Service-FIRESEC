@@ -110,7 +110,7 @@ public class GUI {
         System.out.println("      \"$$$$$\"                      \"\"$$$$\"\"    ");
         System.out.println("        $$$\"                         $$$$\"     ");
     }
-    
+
     private static String white() {
         return WHITE_BRIGHT;
     }
@@ -172,7 +172,37 @@ public class GUI {
         System.out.println("+ where mode can be: slave or master.                +");
         System.out.println("+                                                    +");
         System.out.println("+                                                    +");
-        System.out.println("+ # turbofire > <option>                             +");
+        System.out.println("+ # [turbofire user@host]$ <command>                 +");
+        System.out.println("+                                                    +");
+        System.out.println("+----------------------------------------------------+");
+        System.out.println("+                                                    +");
+        System.out.println("+ HOW DO I MAKE AN ATTACK?                           +");
+        System.out.println("+                                                    +");
+        System.out.println("+ You need to type \"fire\" followed by the            +"); 
+        System.out.println("+ arguments.                                         +"); 
+        System.out.println("+ [turbofire user@host]$ fire <option>               +");
+        System.out.println("+                                                    +");
+        System.out.println("+----------------------------------------------------+");
+        System.out.println("+                                                    +");
+        System.out.println("+ HOW CAN I MONITOR REAL-TIME OPERATION?             +");
+        System.out.println("+                                                    +");
+        System.out.println("+ After you have connected the master server and     +");
+        System.out.println("+ made the attack, so you need to enter the          +");
+        System.out.println("+ following command:                                 +");
+        System.out.println("+ [turbofire user@host]$ monitoring                  +");
+        System.out.println("+                                                    +");
+        System.out.println("+----------------------------------------------------+");
+        System.out.println("+                                                    +");
+        System.out.println("+ ARGUMENTS TO MAKE AN ATTACK:                       +");
+        System.out.println("+                                                    +"); 
+        System.out.println("+ --target <ip_address> | -ip <ip_address>           +");
+        System.out.println("+ --thread <amount>     | -t <amount>                +");
+        System.out.println("+ --port <number>       | -p <number>                +");
+        System.out.println("+ --protocol <tcp,udp>  | -pl <tcp,udp>              +");
+        System.out.println("+ --timeOut <value>     | -to <value>                +");
+        System.out.println("+ --message <message>   | -m <message>               +");
+        System.out.println("+ --range <value>       | -r <value>                 +");
+        System.out.println("+                                                    +");
         System.out.println("+----------------------------------------------------+");
     }
 
@@ -198,7 +228,7 @@ public class GUI {
         System.out.println(green()+"["+red()+"X"+green()+"] "+ red() + "SOFTWARE EXCEPTION: " + yellow() + exception);
     }
 
-    public static void showAttackActivity(int amount, List logs, ArrayList<String> hosts) {
+    public static void showAttackActivity(int amount, List logs, ArrayList<String> hosts, AttackPattern attackPattern) {
         clean();
         System.out.println("+----------------------------------------------------+");
         System.out.println("+ ATTACK ACTIVITY UPDATE                             +");
@@ -210,7 +240,7 @@ public class GUI {
         int k = 0;
         for(String s : hosts) {
             k++;
-            System.out.println(k+") " + s + "\n");
+            System.out.println(k+") " + s);
         }
         System.out.println("+----------------------------------------------------+");
     }

