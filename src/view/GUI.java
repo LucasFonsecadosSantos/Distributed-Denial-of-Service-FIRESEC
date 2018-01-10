@@ -40,7 +40,7 @@ public class GUI {
         System.out.println(purple()+"    |_|  \\___/|_|_\\|___/\\___/  |_|  |___|_|_\\___| \n\n\n");
                                                           
         
-        if(type.equals("master")) {
+        if(type.equalsIgnoreCase("master")) {
             System.out.println(red()+"+----------------------------------------------------+");
             System.out.println("+   WELCOME TO TURBO FIRE NETWORK STRESS SOFTWARE    +");
             System.out.println("+                                                    +");
@@ -52,10 +52,65 @@ public class GUI {
             System.out.println("+----------------------------------------------------+\n");
 
         }else {
+            System.out.println("                    uuuuuuu                    ");
+            System.out.println("                uu$$$$$$$$$$$uu                ");
+            System.out.println("             uu$$$$$$$$$$$$$$$$$uu             ");
+            System.out.println("            u$$$$$$$$$$$$$$$$$$$$$u            ");
+            System.out.println("           u$$$$$$$$$$$$$$$$$$$$$$$u           ");
+            System.out.println("          u$$$$$$$$$$$$$$$$$$$$$$$$$u          ");
+            System.out.println("          u$$$$$$$$$$$$$$$$$$$$$$$$$u          ");
+            System.out.println("          u$$$$$$\"   \"$$$\"   \"$$$$$$u          ");
+            System.out.println("           $$$$\"      u$u       $$$$\"          ");
+            System.out.println("           $$$u       u$u       u$$$           ");
+            System.out.println("           $$$u      u$$$u      u$$$           ");
+            System.out.println("             $$$$uu$$$   $$$uu$$$$\"            ");
+            System.out.println("              $$$$$$$\"   \"$$$$$$$\"             ");
+            System.out.println("               u$$$$$$$u$$$$$$$u               ");
+            System.out.println("                u$\"$\"$\"$\"$\"$\"$u                ");
+            System.out.println("     uuu        $$u$ $ $ $ $u$$       uuu      ");
+            System.out.println("    u$$$$        $$$$$u$u$u$$$       u$$$$     ");
+            System.out.println("     $$$$$uu      \"$$$$$$$$$\"     uu$$$$$$     ");
+            System.out.println("   u$$$$$$$$$$$uu    \"\"\"\"\"    uuuu$$$$$$$$$$   ");
+            System.out.println("   $$$$\"\"\"$$$$$$$$$$uuu   uu$$$$$$$$$\"\"\"$$$\"   ");
+            System.out.println("    \"\"\"\"      \"\"$$$$$$$$$$$uu \"\"$\"\"\"           ");
+            System.out.println("               uuuu \"\"$$$$$$$$$$uuu            ");
+            System.out.println("     u$$$uuu$$$$$$$$$uu \"\"$$$$$$$$$$$uuu$$$    ");
+            System.out.println("     $$$$$$$$$$\"\"\"\"           \"\"$$$$$$$$$$$\"   ");
+            System.out.println("      \"$$$$$\"                      \"\"$$$$\"\"    ");
+            System.out.println("        $$$\"                         $$$$\"     ");
 
         }
     }
 
+    public void showSkull() {
+        System.out.println("                    uuuuuuu                    ");
+        System.out.println("                uu$$$$$$$$$$$uu                ");
+        System.out.println("             uu$$$$$$$$$$$$$$$$$uu             ");
+        System.out.println("            u$$$$$$$$$$$$$$$$$$$$$u            ");
+        System.out.println("           u$$$$$$$$$$$$$$$$$$$$$$$u           ");
+        System.out.println("          u$$$$$$$$$$$$$$$$$$$$$$$$$u          ");
+        System.out.println("          u$$$$$$$$$$$$$$$$$$$$$$$$$u          ");
+        System.out.println("          u$$$$$$\"   \"$$$\"   \"$$$$$$u          ");
+        System.out.println("           $$$$\"      u$u       $$$$\"          ");
+        System.out.println("           $$$u       u$u       u$$$           ");
+        System.out.println("           $$$u      u$$$u      u$$$           ");
+        System.out.println("             $$$$uu$$$   $$$uu$$$$\"            ");
+        System.out.println("              $$$$$$$\"   \"$$$$$$$\"             ");
+        System.out.println("               u$$$$$$$u$$$$$$$u               ");
+        System.out.println("                u$\"$\"$\"$\"$\"$\"$u                ");
+        System.out.println("     uuu        $$u$ $ $ $ $u$$       uuu      ");
+        System.out.println("    u$$$$        $$$$$u$u$u$$$       u$$$$     ");
+        System.out.println("     $$$$$uu      \"$$$$$$$$$\"     uu$$$$$$     ");
+        System.out.println("   u$$$$$$$$$$$uu    \"\"\"\"\"    uuuu$$$$$$$$$$   ");
+        System.out.println("   $$$$\"\"\"$$$$$$$$$$uuu   uu$$$$$$$$$\"\"\"$$$\"   ");
+        System.out.println("    \"\"\"\"      \"\"$$$$$$$$$$$uu \"\"$\"\"\"           ");
+        System.out.println("               uuuu \"\"$$$$$$$$$$uuu            ");
+        System.out.println("     u$$$uuu$$$$$$$$$uu \"\"$$$$$$$$$$$uuu$$$    ");
+        System.out.println("     $$$$$$$$$$\"\"\"\"           \"\"$$$$$$$$$$$\"   ");
+        System.out.println("      \"$$$$$\"                      \"\"$$$$\"\"    ");
+        System.out.println("        $$$\"                         $$$$\"     ");
+    }
+    
     private static String white() {
         return WHITE_BRIGHT;
     }

