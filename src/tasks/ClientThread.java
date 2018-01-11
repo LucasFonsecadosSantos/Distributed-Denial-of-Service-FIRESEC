@@ -32,19 +32,48 @@ import utilies.AttackPattern;
  * @author Otavio Andrade
  * @version 1.0
  * 
- * 
+ * This class respresents a Runnable task for client
+ * process at master server. It is running into a JVM
+ * thread and send to zombie client the attack pattern
+ * or attack command.
  */
 public class ClientThread implements Runnable, Serializable {
 
+    /**
+     * The object stream serial constant.
+     */
     private static final long serialVersionUID = 1L;
+    
+    /**
+     * The client socket object.
+     */
     private Socket client;
+
+    /**
+     * The attack pattern object or attack command.
+     * It contains all informations about the operation.
+     */
     private AttackPattern attackPattern;
 
+    /**
+     * The client thread task object constructor. It receives
+     * a client socket object and a attack pattern object command
+     * and sets them at attributes.
+     * 
+     * @param client The client socket object.
+     * @param attackPattern The attack pattern object or command attack.
+     */
     public ClientThread(Socket client, AttackPattern attackPattern) {
         this.client = client;
         this.attackPattern = attackPattern;
     }
 
+    /**
+     * This is an overwrited method. It executes the
+     * thread processing and in this case,
+     * send to zoombie client the attack pattern object
+     * serializated or attack command.
+     */
     @Override
     public void run() {
         try {

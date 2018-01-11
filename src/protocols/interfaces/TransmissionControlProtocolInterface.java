@@ -49,7 +49,7 @@ public abstract class TransmissionControlProtocolInterface extends Protocol {
      * and the master server port and send these parameters to super class,
      * Protocol abstract class in this case.
      * 
-     * @param attackPatter The attack pattern object.
+     * @param attackPattern The attack pattern object.
      * @param masterAddress The master server IP address.
      * @param masterPort THe master server port value.
      */

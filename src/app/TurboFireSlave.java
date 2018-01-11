@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.io.NotSerializableException;
 import java.io.BufferedReader;
 import java.io.ObjectInputStream;
+import java.lang.InterruptedException;
 import java.io.Serializable;
 import java.net.Socket;
 import java.net.ServerSocket;
@@ -86,6 +87,9 @@ public class TurboFireSlave implements Serializable {
      * The turbo fire slave version executable
      * constructor. It sets the gui instance and
      * start slave operation.
+     * 
+     * @param masterAddress The master server machine IP address.
+     * @param masterPort The master server machine port.
      */
     public TurboFireSlave(String masterAddress, int masterPort) {
         this.attackThreads = new ArrayList<Thread>();
@@ -145,8 +149,11 @@ public class TurboFireSlave implements Serializable {
                         this.gui.clean();
                         for(Thread t : this.attackThreads) {
                             t.interrupt();
-                            System.out.println("Attack interrupt");
+                            GUI.showMessage("Thread Operation Interrupt!");
                         }
+                        GUI.errorMessage("The attack has been interruped! ");
+                        this.gui.pressEnterToContinue();
+                        System.exit(0);
                         break;
                     }else {
                         this.gui.showMessage("TCP Flooding...");
@@ -156,9 +163,7 @@ public class TurboFireSlave implements Serializable {
                 
                 break;
             }catch (InterruptedException ie) {
-                GUI.showMessage("The attack has been interruped! " + ie.toString());
-                this.gui.pressEnterToContinue();
-                System.exit(0);
+                this.gui.showExceptionLog(ie.toString());
             } catch (SocketException se) {
                 this.gui.showExceptionLog(se.toString());
             } catch (NotSerializableException nse) {
@@ -169,6 +174,12 @@ public class TurboFireSlave implements Serializable {
         }
     }
 
+    /**
+     * The attack flag attribute state modifier static 
+     * method.
+     * 
+     * @param status A boolean flag for attack.
+     */
     public static void setAttackFlag(boolean status) {
         stopAttackFlag = status;
     }
