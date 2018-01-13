@@ -111,6 +111,7 @@ public class TurboFireSlave implements Serializable {
                 Socket socket = new Socket(this.masterAddress, this.masterPort);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 this.attackPattern = (AttackPattern) ois.readObject();
+                this.gui.showMessage("The Master server machine is online!");
                 this.gui.showMessage("Command Received from Master!");
                 for(int i=1 ; i < 16 ; i++) {
                     TimeUnit.SECONDS.sleep(1);
