@@ -358,7 +358,7 @@ public class GUI {
         line();
         if(zombies != null) {
             for(int i = 0 ; i < zombies.size() ; i++) {
-                showMessage("ZOMBIE N° "+ (i+1) + ": " + zombies.get(i));
+                showMessage("ZOMBIE NUMBER "+ (i+1) + ": " + zombies.get(i));
             }
         }
         pressEnterToContinue();
