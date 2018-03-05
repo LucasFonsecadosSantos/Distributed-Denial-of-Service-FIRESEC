@@ -1,2 +1,2 @@
-# Distributed-Denial-of-Service-FIRESEC
-DESCRIPTION COMING SOON
+#TURBO FIRE
+###### A distributed denial of service attack test tool.
